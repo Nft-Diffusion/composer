@@ -5,9 +5,9 @@ WORKDIR /build
 
 RUN export GO111MODULE=on 
 
-RUN go get github.com/URL 
-RUN cd /build && git clone https://github.com/URL.git 
-RUN cd /build/api && go mod download && go mod verify 
+RUN go get https://github.com/Nft-Diffusion/api
+RUN cd /build && git clone https://github.com/Nft-Diffusion/api.git
+# RUN cd /build/api && go mod download && go mod verify 
 RUN cd /build/api && go build 
 
 EXPOSE 8080 
