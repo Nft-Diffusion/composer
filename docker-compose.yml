@@ -1,23 +1,29 @@
 version: '3'
 services:
   ipfs:
-    image: ipfs/go-ipfs:latest
+    image: ipfs/kubo:master-2022-12-12-ffb635d
     networks: 
       - backend 
     ports:
-      - "4001:4001"
-      - "5001:5001"
-      - "8080:8080"
+      - "127.0.0.1:4001:4001"
+      - "127.0.0.1:8080:8080"
+      - "127.0.0.1:5001:5001"
+    environment:
+      IPFS_PROFILE: server
     volumes:
       - "ipfs_data:/data/ipfs"
-    command: ["ipfs", "daemon"]
   goapi: 
     build: 
       context: './go-api' 
     environment:
       prod: ${prod}
+    ports: 
+      - "80:3000" 
     networks: 
       - backend 
 networks: 
   backend: 
     driver: bridge 
+volumes:
+  ipfs_data:
+    external: true
